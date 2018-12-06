@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 import Vue from 'vue'
 import Router from 'vue-router'
 
@@ -10,7 +9,7 @@ const router = [
   {
     path: '/',
     name: 'Header',
-    component: _import('Header')
+    component: _import('Layout/HeaderNav')
   }
   // {
   //   path: '/',
