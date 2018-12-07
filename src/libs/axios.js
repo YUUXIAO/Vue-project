@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-// import store from '@/store'
-// import { getToken } from '@/utils/auth'
+import store from '@/store'
 
 // 创建axios实例
 const service = axios.create({
@@ -12,7 +11,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use( config =>{
   // LoadingBar.start()  请求开始的时候可以结合 vuex 开启全屏 loading 动画
-  // store.commit('setLoad', true)   提交发起请求信息
+  store.commit('setLoad', true)
   return config
 },error =>{
   // Do something with request error
@@ -22,7 +21,7 @@ service.interceptors.request.use( config =>{
 // respone拦截器
 service.interceptors.response.use( response =>{
     // LoadingBar.finish()
-    // store.commit('setLoad', false)
+    store.commit('setLoad', false)
     if (response.status === 200) {
       if (response.data == '403') {
         if (location.href.includes('/login')) {
@@ -51,7 +50,7 @@ service.interceptors.response.use( response =>{
     }
 },error =>{
     // LoadingBar.error()
-    // store.commit('setLoad', false)
+    store.commit('setLoad', false)
     if (error.response.status === 500) {
       Message({
         message: error.message,
