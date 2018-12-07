@@ -43,7 +43,12 @@
     submitLoginForm(formName){
       this.$refs[formName].validate( (valid) =>{
         if(valid){
-          console.log('登陆成功')
+          // this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+          //   this.$router.push({ path: '/' }); //登录成功之后重定向到首页
+          // }).catch(err => {
+          //   this.$message.error(err); //登录失败提示错误
+          // });
+          this.$router.push({ path: '/' });
         }else{
           console.log('登陆失败')
         }
