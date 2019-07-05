@@ -11,11 +11,9 @@ util.numberSeparator = (value = 0, type) => {
   let length = 2
   if (value) {
     if (type == 'price') {
-      // value = value.toFixed(4)
       length = 4
       value = Math.round(value * 10000) / 10000
     } else {
-      // value = value.toFixed(2)
       length = 2
       value = Math.round(value * 100) / 100
     }
@@ -42,7 +40,7 @@ util.numberSeparator = (value = 0, type) => {
 }
 
 // 格式化日期
-util.formatDate = function(time, pattern = 'YYYY-MM-DD') {
+util.formatDate = function (time, pattern = 'YYYY-MM-DD') {
   if (time) {
     return moment(time).format(pattern)
   } else {
@@ -50,7 +48,7 @@ util.formatDate = function(time, pattern = 'YYYY-MM-DD') {
   }
 }
 // 小数点四舍五入
-util.formatToFixed = function(number, count) {
+util.formatToFixed = function (number, count) {
   if (!count) {
     count = 4
   }

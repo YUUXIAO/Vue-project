@@ -10,13 +10,11 @@ export function formatDate(time, pattern = 'YYYY-MM-DD HH:mm:ss') {
 }
 // 格式化数字
 export function numberSeparator(value = 0, type) {
-  console.log(1)
   if (!type) {
     type = 'int'
   }
   return util.numberSeparator(value, type)
 }
-//
 export function formatDateAgo(time) {
   moment.locale('zh-cn')
   if (time) {
@@ -161,6 +159,16 @@ export function convertCurrency(money) {
 export function accSub(arg1, arg2) {
   return util.accSub(arg1, arg2)
 }
+/**
+ * 手机号格式化(中间四位用星号显示)
+ * @param {String} phone
+ */
+export function formatPhone(phone) {
+  phone = phone.toString()
+  return phone.substr(0, 3) + '****' + phone.substr(7, 11)
+}
+
+
 export function deteDiff(timeFrom, timeTo, type) {
   // from 2018-1-1 ,to 2017-1-1 ,type year, return 1
   const from = new Date(timeFrom)

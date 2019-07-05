@@ -1,7 +1,8 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
-    <div class="logo-con" style="height:50px;padding: 5px 10px;">
-      <img v-show="!isCollapse" src="../../../../images/logo.png" style="width:100%;height: 100%;">
+    <div class="logo-con" style="height:50px;padding: 5px 10px;background:black;">
+      LOGO
+      <!-- <img v-show="!isCollapse" src="../../../../images/logo.png" style="width:100%;height: 100%;"> -->
     </div>
     <el-menu :unique-opened='true' :show-timeout="200" :default-active="currentPage" :collapse="isCollapse" :background-color="variables.menuBg" :text-color="variables.menuText" :active-text-color="variables.menuActiveText" mode="vertical">
       <sidebar-item v-for="route in menuList" :key="route.path" :item="route" :base-path="route.path" />
