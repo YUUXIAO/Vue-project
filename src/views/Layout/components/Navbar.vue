@@ -57,11 +57,13 @@
   height: 50px;
   line-height: 50px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  border: 1px solid red;
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
+    border: 1px solid green;
   }
   .screenfull {
     position: absolute;

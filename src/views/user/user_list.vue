@@ -104,7 +104,7 @@ create time: 2019-2-25
   } from '@/api/table'
   import tag from '@/components/tagComponent'
   import moment from 'moment'
-  import util from '@/utils/util'
+  import util from '@/utils/utils'
 
   export default {
     components: {

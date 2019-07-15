@@ -1,19 +1,15 @@
 import Vue from 'vue'
-
-import 'normalize.css/normalize.css'
-
+import App from './App'
+import router from './router'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en'
+import store from './store'
 
 import '@/styles/index.scss'
-
-import App from './App'
-import store from './store'
-import router from './router'
+import 'element-ui/lib/theme-chalk/index.css'
 
 import '@/icons'
 import '@/permission'
+import locale from 'element-ui/lib/locale/lang/en'
 import * as filters from '@/utils/filters'
 
 Vue.use(ElementUI, { locale })

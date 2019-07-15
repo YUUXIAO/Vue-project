@@ -1,10 +1,11 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+    <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <navbar/>
       <app-main/>
+      <top-open-tags></top-open-tags>
     </div>
   </div>
 </template>
@@ -13,7 +14,9 @@
   import {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    // 顶部最近打开页面
+    topOpenTags
   } from './components'
   import ResizeMixin from './mixin/ResizeHandler'
 
@@ -22,7 +25,8 @@
     components: {
       Navbar,
       Sidebar,
-      AppMain
+      AppMain,
+      topOpenTags
     },
     mixins: [ResizeMixin],
     computed: {
@@ -53,26 +57,25 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import 'src/styles/mixin.scss';
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    &.mobile.openSidebar {
-      position: fixed;
-      top: 0;
-    }
-  }
-
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
+@import 'src/styles/mixin.scss';
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &.mobile.openSidebar {
+    position: fixed;
     top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
   }
+}
 
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 </style>
