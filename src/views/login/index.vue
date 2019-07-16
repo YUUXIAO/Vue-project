@@ -96,7 +96,7 @@
             this.$store.dispatch('Login', this.loginForm).then(res => {
               this.loading = false
               this.$router.push({
-                path: 'dashboard'
+                path: '/home'
               })
             }).catch(() => {
               this.loading = false

@@ -113,7 +113,7 @@ util.isEmpty = keys => {
 // 消息提示
 util.showMsg = (message, type = "success") => {
   this.$message({
-    showClose: true, Message: Message, type: type
+    showClose: true, Message: message, type: type
   })
 }
 

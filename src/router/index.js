@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '../views/layout/Layout'
 
 Vue.use(Router)
-
-import Layout from '../views/layout/Layout'
 
 /**
 * hidden: true                   决定页面是否在左边菜单栏隐藏【 true:隐藏；false: 显示 】
@@ -30,12 +29,15 @@ export const authRouter = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
     name: 'Dashboard',
-    hidden: true,
+    redirect: '/home',
+    meta: { title: '首页', icon: 'example', role: ['user'] },
     children: [
       {
-        path: 'dashboard',
+        path: 'home',
+        name: 'home',
+        hidden: false,
+        meta: { title: '首页', icon: 'example', role: ['user'] },
         component: () => import('@/views/dashboard/index')
       }
     ]
@@ -44,7 +46,7 @@ export const authRouter = [
   {
     path: '/user',
     component: Layout,
-    redirect: '/user/auditing',
+    redirect: '/user/list',
     name: 'User',
     meta: { title: '用户管理', icon: 'example', role: ['user'] },
     children: [
@@ -52,33 +54,32 @@ export const authRouter = [
       {
         path: 'list',
         name: 'userList',
-        component: () => import('@/views/user/user_list'),
-        meta: { title: '用户列表', icon: 'table', role: ['user_auditing'] }
+        meta: { title: '用户列表', icon: 'table', role: ['user_auditing'] },
+        component: () => import('@/views/user/user_list')
       },
       // 用户审核列表
       {
         path: 'auditing',
         name: 'Auditing',
+        meta: { title: '用户审核', icon: 'table', role: ['user_auditing'] },
         component: () => import('@/views/user/user_auditing_list'),
-        meta: { title: '用户审核', icon: 'table', role: ['user_auditing'] }
       },
       // 用户审核编辑/详情
       {
         path: 'auditing/detail/:action/:id',
         name: 'AuditingDetail',
-        component: () => import('@/views/user/user_auditing_detail'),
+        hidden: true,
         meta: { title: '用户审核', role: ['user_auditing'] },
-        hidden: true
+        component: () => import('@/views/user/user_auditing_detail')
       },
       // 用户审核列表新增
       {
         path: 'auditing/detail/add',
         name: 'auditingAdd',
-        component: () => import('@/views/user/user_auditing_detail'),
+        hidden: true,
         meta: { title: '用户审核', role: ['user_auditing'] },
-        hidden: true
+        component: () => import('@/views/user/user_auditing_detail')
       },
-
       {
         path: 'tree',
         name: 'Tree',
@@ -169,7 +170,7 @@ export const authRouter = [
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: nonAuthRouter
 })

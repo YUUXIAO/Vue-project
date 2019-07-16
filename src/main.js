@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import store from './store'
+import { authRouter } from '@/router/index'
 
 import '@/styles/index.scss'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -25,5 +26,18 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    // 设置最近打开页面
+    let tagsList = []
+    authRouter.map(item => {
+      if (item.children) {
+        tagsList.push(...item.children)
+      } else {
+        tagsList.push(item)
+      }
+    })
+    console.log(tagsList)
+    this.$store.commit('setTagsList', tagsList)
+  }
 })

@@ -214,7 +214,6 @@ create time: 2019-2-25
       },
       // 时间格式化
       sumeFormat(val) {
-        console.log(val)
         return util.numberSeparator(val.sum)
       },
       // 金额格式化

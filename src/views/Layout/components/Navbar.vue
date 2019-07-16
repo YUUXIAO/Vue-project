@@ -1,7 +1,9 @@
 <template>
   <div class="navbar">
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container" />
-    <breadcrumb />
+    <!-- <breadcrumb /> -->
+    <!-- 最近打开页面 -->
+    <TopOpenTags :pageTagsList="pageTagsList" />
     <el-dropdown class="user-container" trigger="click">
       <div class="user-wrapper">
         <span>{{name}}</span>
@@ -27,17 +29,27 @@
   } from 'vuex'
   import Breadcrumb from '@/components/Breadcrumb'
   import Hamburger from '@/components/Hamburger'
+  import TopOpenTags from './TopOpenTags'
 
   export default {
     components: {
       Breadcrumb,
-      Hamburger
+      Hamburger,
+      TopOpenTags
+    },
+    data(){
+      return{}
     },
     computed: {
       ...mapGetters([
         'sidebar',
         'name'
-      ])
+      ]),
+      // 获取最近打开页面的页面对象
+      pageTagsList(){
+        console.log(this.$store.state.app.pageOpenedList)
+        return this.$store.state.app.pageOpenedList
+      }
     },
     methods: {
       toggleSideBar() {
@@ -57,13 +69,11 @@
   height: 50px;
   line-height: 50px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-  border: 1px solid red;
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
-    border: 1px solid green;
   }
   .screenfull {
     position: absolute;

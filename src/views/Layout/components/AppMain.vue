@@ -18,7 +18,7 @@ export default {
   }
 }
 </script>
-
+     
 <style scoped>
 .app-main {
   /*50 = navbar  */

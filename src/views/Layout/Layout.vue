@@ -1,11 +1,10 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
-    <sidebar class="sidebar-container" />
+    <sidebar class="sidebar-container" :menuList="menuList" />
     <div class="main-container">
       <navbar/>
       <app-main/>
-      <top-open-tags></top-open-tags>
     </div>
   </div>
 </template>
@@ -15,21 +14,23 @@
     Navbar,
     Sidebar,
     AppMain,
-    // 顶部最近打开页面
-    topOpenTags
   } from './components'
+
   import ResizeMixin from './mixin/ResizeHandler'
+  
 
   export default {
     name: 'Layout',
     components: {
       Navbar,
       Sidebar,
-      AppMain,
-      topOpenTags
+      AppMain
     },
     mixins: [ResizeMixin],
     computed: {
+      menuList() {
+        return this.$store.state.app.menuList
+      },
       sidebar() {
         return this.$store.state.app.sidebar
       },
@@ -51,6 +52,10 @@
           withoutAnimation: false
         })
       }
+    },
+    created(){
+      // 创建最近打开页面列表
+      this.$store.commit('setOpendList')
     }
   }
 

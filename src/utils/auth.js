@@ -15,7 +15,7 @@ export function removeToken() {
 
 export function hasPermission(roles, route) {
   if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) != -1)
+    return roles.some(role => route.meta.role.includes(role))
   } else {
     return true
   }

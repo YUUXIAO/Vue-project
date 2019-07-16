@@ -79,6 +79,7 @@ create time: 2019-2-21
   font-size: 14px;
   line-height: 50px;
   margin-left: 10px;
+  border: 1px solid red;
   .no-redirect {
     color: #97a8be;
     cursor: text;

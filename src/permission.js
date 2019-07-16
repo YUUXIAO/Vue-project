@@ -47,6 +47,22 @@ router.beforeEach((to, from, next) => {
           name: 'product'
         },
         {
+          authority: 'product_category',
+          name: 'product_category'
+        },
+        {
+          authority: 'product_standard',
+          name: 'product_standard'
+        },
+        {
+          authority: 'nested_menu1',
+          name: 'nested_menu1'
+        },
+        {
+          authority: 'nested_menu1_menu1-1',
+          name: 'nested_menu1_menu1-1'
+        },
+        {
           authority: 'nested',
           name: 'nested'
         }
@@ -67,6 +83,7 @@ router.beforeEach((to, from, next) => {
     // 设置用户名
     store.commit('SET_NAME', data.name)
     const routers = filterAuthRouter(authRouter, roles)
+    console.log(routers)
     store.commit('setMenu', routers)
     router.addRoutes(routers)
     next({
