@@ -1,27 +1,23 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <!-- or name="fade" -->
-      <!-- <router-view :key="key"></router-view> -->
-      <router-view/>
-    </transition>
+    <el-card shadow="always" :body-style="{padding:'10px 0'}">
+      <transition name="fade-transform" mode="out-in">
+        <router-view/>
+      </transition>
+    </el-card>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'AppMain',
-  computed: {
-    // key() {
-    //   return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
-    // }
-  }
+  name: 'AppMain'
 }
 </script>
      
 <style scoped>
 .app-main {
   /*50 = navbar  */
+  background: #fff;
   min-height: calc(100vh - 50px);
   position: relative;
   overflow: hidden;

@@ -5,9 +5,14 @@ import { authRouter } from '@/router/index'
 const user = {
   state: {
     token: getToken(),
-    name: '', // 用户名
-    roles: [], // 用户角色
-    isLogin: false // 是否登录
+    // 用户名
+    name: '',
+    // 用户角色
+    roles: [],
+    // 头像
+    avatar: '',
+    // 是否登录
+    isLogin: false
   },
 
   mutations: {
@@ -16,6 +21,9 @@ const user = {
     },
     SET_NAME: (state, name) => {
       state.name = name
+    },
+    SET_AVATAR: (state, avatar) => {
+      state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles

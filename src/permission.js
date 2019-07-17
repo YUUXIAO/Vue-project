@@ -25,6 +25,7 @@ router.beforeEach((to, from, next) => {
     const data = {
       name: 'YU',
       isAdmin: true,
+      avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3065423701,9584140&fm=27&gp=0.jpg',
       authority_list: [
         {
           authority: 'user',
@@ -82,8 +83,8 @@ router.beforeEach((to, from, next) => {
     store.commit('SET_LOGIN')
     // 设置用户名
     store.commit('SET_NAME', data.name)
+    store.commit('SET_AVATAR', data.avatar)
     const routers = filterAuthRouter(authRouter, roles)
-    console.log(routers)
     store.commit('setMenu', routers)
     router.addRoutes(routers)
     next({

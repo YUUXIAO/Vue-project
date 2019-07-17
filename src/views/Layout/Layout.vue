@@ -1,63 +1,44 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
     <sidebar class="sidebar-container" :menuList="menuList" />
     <div class="main-container">
       <navbar/>
-      <app-main/>
+      <topOpenTags :pageTagsList="pageTagsList" />
+      <appMain/>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    Navbar,
-    Sidebar,
-    AppMain,
-  } from './components'
-
-  import ResizeMixin from './mixin/ResizeHandler'
-  
-
-  export default {
-    name: 'Layout',
-    components: {
-      Navbar,
-      Sidebar,
-      AppMain
+import { Navbar, Sidebar, AppMain,TopOpenTags } from './components'
+export default {
+  name: 'Layout',
+  components: { Navbar, Sidebar, AppMain, TopOpenTags },
+  computed: {
+    menuList() {
+      return this.$store.state.app.menuList
     },
-    mixins: [ResizeMixin],
-    computed: {
-      menuList() {
-        return this.$store.state.app.menuList
-      },
-      sidebar() {
-        return this.$store.state.app.sidebar
-      },
-      device() {
-        return this.$store.state.app.device
-      },
-      classObj() {
-        return {
-          hideSidebar: !this.sidebar.opened,
-          openSidebar: this.sidebar.opened,
-          withoutAnimation: this.sidebar.withoutAnimation,
-          mobile: this.device === 'mobile'
-        }
+    // 获取最近打开页面的页面对象
+    pageTagsList() {
+      return this.$store.state.app.pageOpenedList
+    },
+    sidebar() {
+      return this.$store.state.app.sidebar
+    },
+    classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
+        withoutAnimation: this.sidebar.withoutAnimation
       }
-    },
-    methods: {
-      handleClickOutside() {
-        this.$store.dispatch('CloseSideBar', {
-          withoutAnimation: false
-        })
-      }
-    },
-    created(){
-      // 创建最近打开页面列表
-      this.$store.commit('setOpendList')
     }
+  },
+  methods: {},
+  created() {
+    // 创建历史页面列表
+    this.$store.commit('setOpendList')
   }
+}
 
 </script>
 
@@ -71,6 +52,9 @@
   &.mobile.openSidebar {
     position: fixed;
     top: 0;
+  }
+  & .main-container {
+    background: #efefef;
   }
 }
 

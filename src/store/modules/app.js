@@ -7,11 +7,12 @@ import Cookies from 'js-cookie'
 const app = {
   state: {
     sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),
+      // opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : false,
+      opened: true,
       withoutAnimation: false
     },
-    device: 'desktop',
-    menuList: [], // 系统菜单
+    // 系统菜单
+    menuList: [],
     // 系统所有路由
     tagsList: [],
     // 最近打开页面的页面对象
@@ -32,15 +33,9 @@ const app = {
       state.sidebar.opened = false
       state.sidebar.withoutAnimation = withoutAnimation
     },
-    TOGGLE_DEVICE: (state, device) => {
-      state.device = device
-    },
-
     setMenu(state, menu) {
       state.menuList = menu
     },
-
-
     // 系统所有路由
     setTagsList(state, list) {
       state.tagsList.push(...list)
@@ -52,6 +47,7 @@ const app = {
         state.pageOpenedList.splice(3, length - 3)
       }
       state.pageOpenedList.splice(1, 0, tagObj)
+      localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList)
     },
     // 关闭最近打开页面
     removeTag(state, name) {
@@ -71,7 +67,6 @@ const app = {
     },
     // 设置最近打开页面列表
     setOpendList(state) {
-      console.log(state.tagsList)
       state.pageOpenedList = localStorage.pageOpenedList ? JSON.parse(localStorage.pageOpenedList) : [state.tagsList[0]]
     },
     // 清空最近打开页面列表
@@ -85,9 +80,6 @@ const app = {
     },
     CloseSideBar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
-    },
-    ToggleDevice({ commit }, device) {
-      commit('TOGGLE_DEVICE', device)
     }
   }
 }
