@@ -33,8 +33,9 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.wscn-http404-container{
-  transform: translate(-50%,-50%);
+@import 'src/styles/mixin.scss';
+.wscn-http404-container {
+  transform: translate(-50%, -50%);
   position: absolute;
   top: 40%;
   left: 50%;
@@ -201,7 +202,6 @@ export default {
       width: 110px;
       height: 36px;
       background: #1482f0;
-      border-radius: 100px;
       text-align: center;
       color: #ffffff;
       opacity: 0;
@@ -212,6 +212,7 @@ export default {
       animation-duration: 0.5s;
       animation-delay: 0.3s;
       animation-fill-mode: forwards;
+      @include borderRadius(100px);
     }
     @keyframes slideUp {
       0% {

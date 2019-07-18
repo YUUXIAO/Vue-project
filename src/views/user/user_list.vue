@@ -9,28 +9,28 @@ create time: 2019-2-25
       <h2>用户列表</h2>
     </div>
     <div class="app-content">
-      <el-form ref="formControl" :model="formControl" label-width="100px" label-position="left" size='mini'>
+      <el-form ref="formControl" :model="formControl" label-width="70px" label-position="left">
         <el-row :gutter="40">
-          <el-col :span="6">
+          <search-item>
             <el-form-item label="姓名" prop="name">
               <el-input v-model="formControl.name"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          </search-item>
+          <search-item>
             <el-form-item label="手机号" prop="phone">
               <el-input v-model="formControl.phone"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          </search-item>
+          <search-item>
             <el-form-item label="邮箱" prop="mail">
               <el-input v-model="formControl.mail"></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          </search-item>
+          <search-item>
             <el-form-item label="公司名称" prop="company">
               <el-input v-model="formControl.company"></el-input>
             </el-form-item>
-          </el-col>
+          </search-item>
         </el-row>
         <el-row :gutter="40">
           <el-col :span="6">
@@ -99,154 +99,153 @@ create time: 2019-2-25
 </template>
 
 <script>
-  import {
-    getList
-  } from '@/api/table'
-  import tag from '@/components/tagComponent'
-  import moment from 'moment'
-  import util from '@/utils/utils'
+import moment from 'moment'
+import util from '@/utils/utils'
+import searchItem from '@/components/SearchItem'
+import { getList } from '@/api/table'
+  
 
-  export default {
-    components: {
-      tag
-    },
-    data() {
-      return {
-        formControl: {
-          name: '',
-          phone: '',
-          mail: '',
-          company: '',
+export default {
+  components:{
+    searchItem
+  },
+  data() {
+    return {
+      formControl: {
+        name: '',
+        phone: '',
+        mail: '',
+        company: '',
+        status: 'active',
+        from: '',
+        to: '',
+        currPage: 1,
+        pageSize: 10
+      },
+      tableData: [{
+          author: 'AAA',
+          code: '111',
           status: 'active',
-          from: '',
-          to: '',
-          currPage: 1,
-          pageSize: 10
+          phone: '13177898765',
+          sum: 10000,
+          createTime: 1550199699000,
+          lastTime: 1550199699000
         },
-        tableData: [{
-            author: 'AAA',
-            code: '111',
-            status: 'active',
-            phone: '13177898765',
-            sum: 10000,
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          },
-          {
-            author: 'SSS',
-            code: 'OOO',
-            status: 'disable',
-            sum: 98786968,
-            phone: '13177898765',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          },
-          {
-            author: 'DDD',
-            code: '222',
-            sum: 123132,
-            status: 'active',
-            phone: '13177898765',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          },
-          {
-            author: 'FFF',
-            sum: 100,
-            code: '555',
-            phone: '13177898765',
-            status: 'active',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          }, {
-            author: 'EEE',
-            phone: '13177898765',
-            code: '666',
-            sum: 5555,
-            status: 'disable',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          }, {
-            author: 'HHH',
-            phone: '13177898765',
-            sum: 666,
-            code: '777',
-            status: 'active',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          }, {
-            author: 'HHH',
-            phone: '13177898765',
-            sum: 666,
-            code: '777',
-            status: 'active',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          }, {
-            author: 'HHH',
-            phone: '13177898765',
-            sum: 666,
-            code: '777',
-            status: 'disable',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          }, {
-            author: 'HHH',
-            phone: '13177898765',
-            sum: 666,
-            code: '777',
-            status: 'active',
-            createTime: 1550199699000,
-            lastTime: 1550199699000
-          },
+        {
+          author: 'SSS',
+          code: 'OOO',
+          status: 'disable',
+          sum: 98786968,
+          phone: '13177898765',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        },
+        {
+          author: 'DDD',
+          code: '222',
+          sum: 123132,
+          status: 'active',
+          phone: '13177898765',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        },
+        {
+          author: 'FFF',
+          sum: 100,
+          code: '555',
+          phone: '13177898765',
+          status: 'active',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        }, {
+          author: 'EEE',
+          phone: '13177898765',
+          code: '666',
+          sum: 5555,
+          status: 'disable',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        }, {
+          author: 'HHH',
+          phone: '13177898765',
+          sum: 666,
+          code: '777',
+          status: 'active',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        }, {
+          author: 'HHH',
+          phone: '13177898765',
+          sum: 666,
+          code: '777',
+          status: 'active',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        }, {
+          author: 'HHH',
+          phone: '13177898765',
+          sum: 666,
+          code: '777',
+          status: 'disable',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        }, {
+          author: 'HHH',
+          phone: '13177898765',
+          sum: 666,
+          code: '777',
+          status: 'active',
+          createTime: 1550199699000,
+          lastTime: 1550199699000
+        },
 
-        ],
-        totalNumber: 78,
-        showDialog: false,
-        rowIndex: null
-      }
-    },
-    created() {},
-    methods: {
-      // 重置搜索表单
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-      // 时间格式化
-      sumeFormat(val) {
-        return util.numberSeparator(val.sum)
-      },
-      // 金额格式化
-      dateFormat(val) {
-        return moment(val.lastTime).format("YYYY-MM-DD");
-      },
-      // 删除
-      deleteRow(row, index) {
-        this.showDialog = true
-        this.rowIndex = index
-      },
-      // 详情
-      detailRow(row, index) {
-        // let id = this.tableData[index].id
-        let id = 1
-        this.$router.push({
-          path: `/user/auditing/detail/show/${id}`
-        })
-      },
-      // 编辑
-      editRow(row, index) {
-        // let id = this.tableData[index].id
-        let id = 1
-        this.$router.push({
-          path: `/user/auditing/detail/edit/${id}`
-        })
-      },
-      confirmDialog() {
-        this.tableData.splice(this.rowIndex, 1);
-        this.showDialog = false
-      },
-
+      ],
+      totalNumber: 78,
+      showDialog: false,
+      rowIndex: null
     }
+  },
+  created() {},
+  methods: {
+    // 重置搜索表单
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    // 时间格式化
+    sumeFormat(val) {
+      return util.numberSeparator(val.sum)
+    },
+    // 金额格式化
+    dateFormat(val) {
+      return moment(val.lastTime).format("YYYY-MM-DD");
+    },
+    // 删除
+    deleteRow(row, index) {
+      this.showDialog = true
+      this.rowIndex = index
+    },
+    // 详情
+    detailRow(row, index) {
+      // let id = this.tableData[index].id
+      let id = 1
+      this.$router.push({
+        path: `/user/auditing/detail/show/${id}`
+      })
+    },
+    // 编辑
+    editRow(row, index) {
+      // let id = this.tableData[index].id
+      let id = 1
+      this.$router.push({
+        path: `/user/auditing/detail/edit/${id}`
+      })
+    },
+    confirmDialog() {
+      this.tableData.splice(this.rowIndex, 1);
+      this.showDialog = false
+    },
+
   }
+}
 </script>
 

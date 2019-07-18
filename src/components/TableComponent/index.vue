@@ -4,7 +4,7 @@ author: yuxiao
 create time: 2019-2-21
  -->
 <template>
-  <div class="tab-line" :class=" { 'grayLine': singleType == 'single','firstLine': lineType=='firstLine'}">
+  <div class="tab-line flex-x-between" :class=" { 'grayLine': singleType == 'single','firstLine': lineType=='firstLine'}">
     <p class="line-label">{{lineLabel}}</p>
     <p class="line-content">
       <slot name="line-content"></slot>
@@ -48,8 +48,6 @@ p {
   height: 45px;
   line-height: 45px;
   border-bottom: 1px solid #e7ecf1;
-  display: flex;
-  justify-content: space-between;
 }
 
 .tab-line:hover {

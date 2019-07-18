@@ -1,15 +1,13 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
-    <!-- Logo -->
-    <div class="logo-con" v-if="!isCollapse">
+    <div class="logo-con flex-x-start flex-y-center" v-if="!isCollapse">
       <img v-if="logo" :src="logo" class="sidebar-logo">
       <h1 class="sidebar-title">{{ title }}</h1>
     </div>
     <div class="logo-con " v-else>
       <img v-if="logo" :src="logo" class="sidebar-logo" style="width: 100%;">
     </div>
-    <!-- 菜单列表 -->
-    <el-menu :default-active="currentPageName" :collapse="isCollapse" :background-color="variables.menuBg" :text-color="variables.menuText" unique-opened="true" :active-text-color="variables.menuActiveText" :collapse-transition="false" mode="vertical" @select="handleSelect">
+    <el-menu :default-active="currentPageName" :collapse="isCollapse" :background-color="variables.menuBg" :text-color="variables.menuText" :unique-opened="true" :active-text-color="variables.menuActiveText" :collapse-transition="false" mode="vertical" @select="handleSelect">
       <sidebar-item v-for="route in menuList" :key="route.path" :item="route" />
     </el-menu>
   </el-scrollbar>
@@ -94,17 +92,13 @@
 
 
 <style lang="scss" scoped>
+
 .logo-con {
   height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
   & .sidebar-logo {
     height: 90%;
     width: auto;
   }
-
   & .sidebar-title {
     font-size: 14px;
     display: inline-block;

@@ -1,33 +1,24 @@
 <template>
-  <div v-if="!item.hidden"
-    class="menu-wrapper">
-    <!-- 无子菜单 -->
+  <div v-if="!item.hidden" class="menu-wrapper">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)">
-      <el-menu-item :index="onlyOneChild.name"
-        :key="onlyOneChild.name">
+      <el-menu-item :index="onlyOneChild.name" :key="onlyOneChild.name">
         <i :class="onlyOneChild.meta.icon"></i>
         <span>{{onlyOneChild.meta.title}}</span>
       </el-menu-item>
     </template>
-    <!-- 有子菜单 -->
     <template v-else>
-      <el-submenu :index="item.name"
-        :key="item.name">
+      <el-submenu :index="item.name" :key="item.name">
         <template slot="title">
           <i :class="item.meta.icon"></i>
           <span v-if="item.meta">{{item.meta.title}}</span>
         </template>
-        <sidebar-item v-for="child in item.children"
-          :key="child.name"
-          :item="child" />
+        <sidebar-item v-for="child in item.children" :key="child.name" :item="child" />
       </el-submenu>
     </template>
   </div>
 </template>
 
 <script>
-import path from 'path'
-import { isExternal } from '@/utils/validate'
 
 export default {
   name: 'SidebarItem',

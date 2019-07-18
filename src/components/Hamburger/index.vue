@@ -1,8 +1,3 @@
-<!--
-description: 面包屑左侧图标收缩按钮
-author: yuxiao
-create time: 2019-2-21
- -->
 <template>
   <div>
     <svg :class="{'is-active':isActive}" class="hamburger" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="64" height="64" @click="toggleClick">

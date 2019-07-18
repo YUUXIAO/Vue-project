@@ -88,8 +88,6 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.app-content {}
-
 // 分页
 .pagination {
     margin-top: 20px;
@@ -104,4 +102,21 @@ a:hover {
 .app-footer {
     margin-top: 30px;
     text-align: center;
+}
+
+// flex
+
+.flex-x-between{
+    display: flex;
+    justify-content: space-between
+}
+
+.flex-x-start{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.flex-y-center{
+    display: flex;
+    align-items: center;
 }

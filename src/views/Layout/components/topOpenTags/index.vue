@@ -2,7 +2,7 @@
   <div class="topOpenTags">
     <div class="topTags">
       <span class="tips">当前所在位置：</span>
-      <el-tag class="tag" size="medium" :effect="item.children?(item.children[0].name === currentPageName?'dark':'plain'):(item.name === currentPageName?'dark':'plain')" :type="item.children?(item.children[0].name === currentPageName?'info':'success'):(item.name === currentPageName?'':'info')" :closable="item.name !=='dashboard-home'" v-for="item in pageTagsList" :key="item.name" @close="closePage(item.name)" @click.native="linkTo(item.name)">
+      <el-tag class="tag" size="medium" :type="item.children?(item.children[0].name === currentPageName?'info':'success'):(item.name === currentPageName?'':'info')" :closable="item.name !=='dashboard-home'" v-for="item in pageTagsList" :key="item.name" @close="closePage(item.name)" @click.native="linkTo(item.name)">
         {{item.meta.title}}
       </el-tag>
     </div>
@@ -65,18 +65,20 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import 'src/styles/mixin.scss';
 .topOpenTags {
   padding: 10px;
 
   & .tips {
     font-size: 12px;
-    color: #909399;
+    color: #606266;
   }
 
   & .topTags {
     & .tag {
       margin-right: 10px;
-      border-radius: 0;
+      cursor: pointer;
+      @include borderRadius(0);
     }
   }
 }

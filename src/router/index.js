@@ -36,7 +36,7 @@ export const authRouter = [
     name: 'dashboard',
     redirect: '/home',
     meta: {
-      title: '首页',
+      // title: '首页1',
       icon: 'el-icon-house',
       role: ['user']
     },

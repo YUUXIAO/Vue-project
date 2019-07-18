@@ -62,7 +62,8 @@
 
    }}
 </script>
-<style>
+<style rel="stylesheet/scss" lang="scss" scoped>
+@import 'src/styles/mixin.scss';
 * {
   margin: 0;
   padding: 0;
@@ -77,13 +78,13 @@
   width: 400px;
   border: 1px solid #333;
   background: #fff;
-  border-radius: 10px;
   position: fixed;
   padding: 30px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   box-shadow: #777 0 0 5px 2px;
+  @include borderRadius(10px);
 }
 </style>
 
