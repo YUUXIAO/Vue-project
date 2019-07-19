@@ -4,13 +4,12 @@
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container" />
     <user-info/>
   </div>
-
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
+import Breadcrumb from '@/components/Layout/Breadcrumb'
+import Hamburger from '@/components/Layout/Hamburger'
 import UserInfo from './UserInfo'
 
 export default {

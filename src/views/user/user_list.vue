@@ -5,32 +5,17 @@ create time: 2019-2-25
  -->
 <template>
   <div class="app-container">
-    <div class="app-title">
+    <!-- <div class="app-title">
       <h2>用户列表</h2>
-    </div>
+    </div> -->
+    <app-title></app-title>
     <div class="app-content">
       <el-form ref="formControl" :model="formControl" label-width="70px" label-position="left">
         <el-row :gutter="40">
-          <search-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="formControl.name"></el-input>
-            </el-form-item>
-          </search-item>
-          <search-item>
-            <el-form-item label="手机号" prop="phone">
-              <el-input v-model="formControl.phone"></el-input>
-            </el-form-item>
-          </search-item>
-          <search-item>
-            <el-form-item label="邮箱" prop="mail">
-              <el-input v-model="formControl.mail"></el-input>
-            </el-form-item>
-          </search-item>
-          <search-item>
-            <el-form-item label="公司名称" prop="company">
-              <el-input v-model="formControl.company"></el-input>
-            </el-form-item>
-          </search-item>
+          <search-input-item label="姓名" v-model="formControl.name"></search-input-item>
+          <search-input-item label="手机号" v-model="formControl.phone"></search-input-item>
+          <search-input-item label="邮箱" v-model="formControl.mail"></search-input-item>
+          <search-input-item label="公司名称" v-model="formControl.company"></search-input-item>
         </el-row>
         <el-row :gutter="40">
           <el-col :span="6">
@@ -101,13 +86,16 @@ create time: 2019-2-25
 <script>
 import moment from 'moment'
 import util from '@/utils/utils'
-import searchItem from '@/components/SearchItem'
+import enums from '@/common/emum'
+import SearchInputItem from '@/components/Search/s-input'
+import AppTitle from '@/components/Layout/AppTitle'
 import { getList } from '@/api/table'
   
 
 export default {
   components:{
-    searchItem
+    AppTitle,
+    SearchInputItem
   },
   data() {
     return {
@@ -210,6 +198,9 @@ export default {
     // 重置搜索表单
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    onSubmit(){
+      console.log(this.formControl.name)
     },
     // 时间格式化
     sumeFormat(val) {

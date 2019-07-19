@@ -92,9 +92,10 @@
 
 
 <style lang="scss" scoped>
-
 .logo-con {
-  height: 50px;
+  height: 70px;
+  border-bottom: 1px solid #efefef;
+  padding: 10px 5px;
   & .sidebar-logo {
     height: 90%;
     width: auto;
