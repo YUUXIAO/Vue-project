@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 
 const app = {
   state: {
+    isLoading: false,
     sidebar: {
       // opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : false,
       opened: true,
@@ -33,7 +34,12 @@ const app = {
       state.sidebar.opened = false
       state.sidebar.withoutAnimation = withoutAnimation
     },
-    setMenu(state, menu) {
+    // 设置loading
+    SET_LOAD(state, load) {
+      state.isLoading = load
+    },
+    // 设置权限菜单
+    SET_MENU(state, menu) {
       state.menuList = menu
     },
     // 系统所有路由

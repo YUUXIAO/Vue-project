@@ -1,6 +1,6 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, removeToken, filterAuthRouter } from '@/utils/auth'
-import { authRouter } from '@/router/index'
+import { getToken, setToken, removeToken, filterAuthRouter } from '@/utils/auth'
+import { authRouter } from '@/router'
 
 const user = {
   state: {
@@ -16,21 +16,27 @@ const user = {
   },
 
   mutations: {
+    // 保存token
     SET_TOKEN: (state, token) => {
       state.token = token
     },
+    // 保存用户名
     SET_NAME: (state, name) => {
       state.name = name
     },
+    // 保存用户头像
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
+    // 保存用户权限信息
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
+    // 设置登陆状态【true】
     SET_LOGIN: state => {
       state.isLogin = true
     },
+    // 设置登陆状态【false】
     SET_LOGINOUT: state => {
       state.isLogin = false
     }
@@ -39,32 +45,48 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+      const { username, password } = userInfo
       return new Promise((resolve, reject) => {
-        resolve()
-
-        // login(username, userInfo.password)
-        //   .then(response => {
-        //     const data = response.data
-        //     commit('SET_LOGIN') // 设置登陆状态成功
-        //     resolve()
-        //   })
-        //   .catch(error => {
-        //     reject(error)
-        //   })
+        login({ username: username.trim(), password: password })
+          .then(response => {
+            const { token } = response
+            commit('SET_TOKEN', token)
+            setToken(token)
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
 
     // 获取用户信息
     GetInfo({ commit, state }) {
-      return new Promise((resolve, reject) => { })
+      return new Promise((resolve, reject) => {
+        getInfo(state.token).then(response => {
+          let { data } = response
+          let { username, avatar, roles } = data
+          if (!roles || roles.length <= 0) {
+            reject('getInfo: roles must be a non-null array!')
+          }
+          commit('SET_LOGIN')
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', name)
+          commit('SET_AVATAR', avatar)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
 
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         commit('SET_ROLES', [])
+        commit('SET_TOKEN', '')
         commit('SET_LOGINOUT')
+        removeToken()
         // logout(state.token)
         //   .then(() => {
         //     commit('SET_TOKEN', '')

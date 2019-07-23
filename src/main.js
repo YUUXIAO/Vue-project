@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 import router from './router'
 import ElementUI from 'element-ui'
-import store from './store'
 import { authRouter } from '@/router/index'
 
+import '@/icons'
 import '@/styles/index.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import '@/icons'
 import '@/permission'
-import locale from 'element-ui/lib/locale/lang/en'
 import * as filters from '@/utils/filters'
+import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUI, { locale })
 
@@ -19,7 +19,7 @@ Vue.use(ElementUI, { locale })
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+// 阻止显示生产模式的消息
 Vue.config.productionTip = false
 
 new Vue({
@@ -37,7 +37,6 @@ new Vue({
         tagsList.push(item)
       }
     })
-    console.log(tagsList)
     this.$store.commit('setTagsList', tagsList)
   }
 })

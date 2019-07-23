@@ -117,7 +117,7 @@ util.showMsg = (message, type = "success") => {
   })
 }
 
-// 弹框
+// 弹框提示
 util.showConfirm = (content, type = "success", title = '提示', confirmButtonText = "确定", cancelButtonText = "取消", confirmCallback, cancelCallback) => {
   this.$confirm(content, title, {
     confirmButtonText, cancelButtonText, type

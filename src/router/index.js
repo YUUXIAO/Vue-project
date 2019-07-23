@@ -36,7 +36,6 @@ export const authRouter = [
     name: 'dashboard',
     redirect: '/home',
     meta: {
-      // title: '首页1',
       icon: 'el-icon-house',
       role: ['user']
     },
@@ -110,14 +109,12 @@ export const authRouter = [
           role: ['user_auditing'],
           activeMenu: 'user-auditing'
         },
-        component: () =>
-          import('@/views/user/user_auditing_detail')
+        component: () => import('@/views/user/user_auditing_detail')
       },
       {
         path: 'tree',
         name: 'user-tree',
-        component: () =>
-          import('@/views/tree/index'),
+        component: () => import('@/views/tree/index'),
         meta: {
           title: '用户开户',
           icon: 'el-icon-user',
@@ -127,8 +124,7 @@ export const authRouter = [
       {
         path: 'open',
         name: 'user-open',
-        component: () =>
-          import('@/views/tree/index'),
+        component: () => import('@/views/tree/index'),
         meta: {
           title: '用户开户2',
           icon: 'el-icon-user',
@@ -150,8 +146,7 @@ export const authRouter = [
     children: [{
       path: 'category',
       name: 'product-category',
-      component: () =>
-        import('@/views/table/index'),
+      component: () => import('@/views/table/index'),
       meta: {
         title: '产品分类',
         icon: 'el-icon-goods',
@@ -161,8 +156,7 @@ export const authRouter = [
     {
       path: 'standard',
       name: 'product-standard',
-      component: () =>
-        import('@/views/tree/index'),
+      component: () => import('@/views/tree/index'),
       meta: {
         title: '产品标准',
         icon: 'el-icon-goods',
@@ -172,8 +166,7 @@ export const authRouter = [
     {
       path: 'price',
       name: 'product-price',
-      component: () =>
-        import('@/views/tree/index'),
+      component: () => import('@/views/tree/index'),
       meta: {
         title: '产品价格',
         icon: 'el-icon-goods',
@@ -195,8 +188,7 @@ export const authRouter = [
     children: [{
       path: 'menu1',
       name: 'nested-menu1',
-      component: () =>
-        import('@/views/nested/menu1/index'), // Parent router-view
+      component: () => import('@/views/nested/menu1/index'),
       meta: {
         title: 'Menu1',
         icon: "el-icon-document",
@@ -205,8 +197,7 @@ export const authRouter = [
       children: [{
         path: 'menu1-1',
         name: 'nested-menu1-1',
-        component: () =>
-          import('@/views/nested/menu1/menu1-1'),
+        component: () => import('@/views/nested/menu1/menu1-1'),
         meta: {
           title: 'Menu1-1',
           role: ['nested_menu1_menu1-1']
@@ -215,8 +206,7 @@ export const authRouter = [
       {
         path: 'menu1-3',
         name: 'nested-menu1-3',
-        component: () =>
-          import('@/views/nested/menu1/menu1-3'),
+        component: () => import('@/views/nested/menu1/menu1-3'),
         meta: {
           title: 'Menu1-3',
           icon: 'el-icon-document',
@@ -228,8 +218,7 @@ export const authRouter = [
     {
       path: 'menu2',
       name: 'nested-menu1-menu2',
-      component: () =>
-        import('@/views/nested/menu2/index'),
+      component: () => import('@/views/nested/menu2/index'),
       meta: {
         title: 'menu2',
         icon: 'el-icon-document',
@@ -243,8 +232,7 @@ export const authRouter = [
     meta: {
       title: '404'
     },
-    component: () =>
-      import('@/views/404'),
+    component: () => import('@/views/404'),
     hidden: true
   }
 ]

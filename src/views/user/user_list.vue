@@ -5,73 +5,67 @@ create time: 2019-2-25
  -->
 <template>
   <div class="app-container">
-    <!-- <div class="app-title">
-      <h2>用户列表</h2>
-    </div> -->
-    <app-title></app-title>
-    <div class="app-content">
-      <el-form ref="formControl" :model="formControl" label-width="70px" label-position="left">
-        <el-row :gutter="40">
-          <search-input-item label="姓名" v-model="formControl.name"></search-input-item>
-          <search-input-item label="手机号" v-model="formControl.phone"></search-input-item>
-          <search-input-item label="邮箱" v-model="formControl.mail"></search-input-item>
-          <search-input-item label="公司名称" v-model="formControl.company"></search-input-item>
-        </el-row>
-        <el-row :gutter="40">
-          <el-col :span="6">
-            <el-form-item label="状态">
-              <el-select v-model="formControl.status" prop="status" placeholder="请选择状态" style="width: 100%;">
-                <el-option label="禁用" value="disable"></el-option>
-                <el-option label="启用" value="active"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="开始" prop="from">
-              <el-date-picker type="date" placeholder="选择日期" v-model="formControl.from" style="width: 100%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="结束" prop="to">
-              <el-date-picker type="date" placeholder="选择日期" v-model="formControl.to" style="width: 100%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-form-item style=" float: right ">
-            <el-button type="primary" @click="onSubmit()">搜索</el-button>
-            <el-button type="warning " @click='resetForm("formControl")'>重置</el-button>
-          </el-form-item>
-        </el-row>
-      </el-form>
-      <el-row>
-        <el-table :data="tableData" style="width: 100%" stripe border fit highlight-current-row :header-cell-style="{background:'#f5f7fa',color:'#606266'}">
-          <el-table-column fixed type="index" width="50" align="center"></el-table-column>
-          <el-table-column prop="author" label="姓名" width="150" align="center"></el-table-column>
-          <el-table-column prop="code" label="客户代码" width="150" align="center"></el-table-column>
-          <el-table-column prop="phone" label="手机号" width="200" align="center"></el-table-column>
-          <el-table-column prop="sum" label="金额" :formatter="sumeFormat" width="200" align="center"></el-table-column>
-          <el-table-column label="状态" width="120" align="center">
-            <template slot-scope="scope">
-              <el-tag :type="scope.row.status === 'active' ? 'success' : 'danger'">{{scope.row.status=='active'?'启用':'禁用'}}</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop=" createTime" label="注册日期" :formatter="dateFormat" width="220" align="center"></el-table-column>
-          <el-table-column prop="lastTime" label="最近登陆时间" :formatter="dateFormat" width="220" align="center"></el-table-column>
-          <el-table-column fixed="right" label="操作" width="340" align="center">
-            <template slot-scope="scope">
-              <el-button type="danger" size="small" @click.native.prevent="deleteRow(scope.row,scope.$index)">
-                删除</el-button>
-              <el-button type="info" size="small" @click.native.prevent="detailRow(scope.row)">详情</el-button>
-              <el-button type="success" size="small" @click.native.prevent="editRow(scope.row)">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="pagination ">
-          <el-pagination background layout="prev, pager, next" :total="totalNumber"></el-pagination>
-        </div>
+    <el-form ref="formControl" :model="formControl" label-width="70px" label-position="left">
+      <el-row :gutter="40">
+        <search-input-item label="姓名" v-model="formControl.name"></search-input-item>
+        <search-input-item label="手机号" v-model="formControl.phone"></search-input-item>
+        <search-input-item label="邮箱" v-model="formControl.mail"></search-input-item>
+        <search-input-item label="公司名称" v-model="formControl.company"></search-input-item>
       </el-row>
-    </div>
+      <el-row :gutter="40">
+        <el-col :span="6">
+          <el-form-item label="状态">
+            <el-select v-model="formControl.status" prop="status" placeholder="请选择状态" style="width: 100%;">
+              <el-option label="禁用" value="disable"></el-option>
+              <el-option label="启用" value="active"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="开始" prop="from">
+            <el-date-picker type="date" placeholder="选择日期" v-model="formControl.from" style="width: 100%;"></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="结束" prop="to">
+            <el-date-picker type="date" placeholder="选择日期" v-model="formControl.to" style="width: 100%;"></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-form-item style=" float: right ">
+          <el-button type="primary" @click="onSubmit()">搜索</el-button>
+          <el-button type="warning " @click='resetForm("formControl")'>重置</el-button>
+        </el-form-item>
+      </el-row>
+    </el-form>
+    <el-row>
+      <el-table :data="tableData" style="width: 100%" stripe border fit highlight-current-row :header-cell-style="{background:'#f5f7fa',color:'#606266'}">
+        <el-table-column fixed type="index" width="50" align="center"></el-table-column>
+        <el-table-column prop="author" label="姓名" width="150" align="center"></el-table-column>
+        <el-table-column prop="code" label="客户代码" width="150" align="center"></el-table-column>
+        <el-table-column prop="phone" label="手机号" width="200" align="center"></el-table-column>
+        <el-table-column prop="sum" label="金额" :formatter="sumeFormat" width="200" align="center"></el-table-column>
+        <el-table-column label="状态" width="120" align="center">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.status === 'active' ? 'success' : 'danger'">{{scope.row.status=='active'?'启用':'禁用'}}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop=" createTime" label="注册日期" :formatter="dateFormat" width="220" align="center"></el-table-column>
+        <el-table-column prop="lastTime" label="最近登陆时间" :formatter="dateFormat" width="220" align="center"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="340" align="center">
+          <template slot-scope="scope">
+            <el-button type="danger" size="small" @click.native.prevent="deleteRow(scope.row,scope.$index)">
+              删除</el-button>
+            <el-button type="info" size="small" @click.native.prevent="detailRow(scope.row)">详情</el-button>
+            <el-button type="success" size="small" @click.native.prevent="editRow(scope.row)">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination ">
+        <el-pagination background layout="prev, pager, next" :total="totalNumber"></el-pagination>
+      </div>
+    </el-row>
     <!-- 提示框 -->
     <el-dialog title="提示 " :visible.sync="showDialog" width="30% ">
       <span>确定删除这条数据吗？</span>
@@ -86,7 +80,7 @@ create time: 2019-2-25
 <script>
 import moment from 'moment'
 import util from '@/utils/utils'
-import enums from '@/common/emum'
+import enums from '@/common/enums'
 import SearchInputItem from '@/components/Search/s-input'
 import AppTitle from '@/components/Layout/AppTitle'
 import { getList } from '@/api/table'

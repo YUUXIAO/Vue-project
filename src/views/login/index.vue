@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">vue-admin-template</h3>
+      <h3 class="title">Login Form</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -93,9 +93,7 @@
             this.loading = true
             this.$store.dispatch('Login', this.loginForm).then(res => {
               this.loading = false
-              this.$router.push({
-                path: '/home'
-              })
+              this.$router.push({ path: '/home'})
             }).catch(() => {
               this.loading = false
             })
