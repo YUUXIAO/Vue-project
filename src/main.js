@@ -9,8 +9,9 @@ import '@/icons'
 import '@/styles/index.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import '@/permission'
+import '@/utils/permission'
 import * as filters from '@/utils/filters'
+import * as components from '@/components'
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUI, { locale })
@@ -19,6 +20,12 @@ Vue.use(ElementUI, { locale })
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+
+// 全局注册components
+Object.keys(components).forEach(key => {
+  Vue.use(components[key])
+})
+
 // 阻止显示生产模式的消息
 Vue.config.productionTip = false
 

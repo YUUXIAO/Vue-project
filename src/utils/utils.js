@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { Message } from 'element-ui';
+import { Message, MessageBox, Notification } from 'element-ui';
 const util = {}
 
 // 设置浏览器tab栏标题名称
@@ -112,14 +112,14 @@ util.isEmpty = keys => {
 
 // 消息提示
 util.showMsg = (message, type = "success") => {
-  this.$message({
-    showClose: true, Message: message, type: type
+  Message({
+    message: message, type: type
   })
 }
 
 // 弹框提示
 util.showConfirm = (content, type = "success", title = '提示', confirmButtonText = "确定", cancelButtonText = "取消", confirmCallback, cancelCallback) => {
-  this.$confirm(content, title, {
+  MessageBox.confirm(content, title, {
     confirmButtonText, cancelButtonText, type
   }).then(() => {
     // 点击确认
@@ -132,10 +132,9 @@ util.showConfirm = (content, type = "success", title = '提示', confirmButtonTe
 
 // 通知
 util.showNotice = (message, type = "success", title = "提示") => {
-  this.$notify({
+  Notification({
     title, message, type
   });
 }
-
 
 export default util

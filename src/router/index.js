@@ -74,6 +74,16 @@ export const authRouter = [
         },
         component: () => import('@/views/user/user_list')
       },
+      {
+        path: 'table',
+        name: 'user-table',
+        meta: {
+          title: '封装列表',
+          icon: 'el-icon-user',
+          role: ['user_auditing']
+        },
+        component: () => import('@/views/user/table')
+      },
       // 用户审核列表
       {
         path: 'auditing',

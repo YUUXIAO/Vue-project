@@ -11,10 +11,13 @@
 </template> 
 
 <script>
-import { Input } from 'element-ui'
 export default {
     name:'searchInputItem',
     props:{
+        value:{
+            type: String,
+            default: ''
+        },
         colSpan:{
             type: [Number],
             default: 6
@@ -24,7 +27,6 @@ export default {
             default:'INPUT'
         }
     },
-    computed:{},
     data(){
         return{
             inputValue:this.value
@@ -35,6 +37,7 @@ export default {
             this.$emit('input',this.inputValue)
         },
         value(){
+            console.log(this.value)
             this.inputValue = this.value
         }
     }

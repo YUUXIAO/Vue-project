@@ -1,16 +1,19 @@
-import router from './router'
-import store from './store'
+import router from '../router'
+import store from '../store'
+import utils from './utils'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { Message } from 'element-ui'
 import { getToken, hasPermission, filterAuthRouter } from '@/utils/auth'
 import { authRouter } from '@/router/index'
 
+
 const whiteList = ['/login', '/404']
-const hasToken = getToken()
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  utils.title(to.meta.title)
+
   if (whiteList.indexOf(to.path) !== -1) {
     next()
   } else if (store.state.user.isLogin) {
