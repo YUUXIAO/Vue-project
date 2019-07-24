@@ -12,9 +12,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/utils/permission'
 import * as filters from '@/utils/filters'
 import * as components from '@/components'
-import locale from 'element-ui/lib/locale/lang/en'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, { zhLocale })
 
 // 全局注册filters
 Object.keys(filters).forEach(key => {

@@ -37,7 +37,6 @@ export default {
             this.$emit('input',this.inputValue)
         },
         value(){
-            console.log(this.value)
             this.inputValue = this.value
         }
     }
