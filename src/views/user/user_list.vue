@@ -59,7 +59,7 @@ import moment from 'moment'
 import util from '@/utils/utils'
 import enums from '@/common/enums'
 import AppTitle from '@/components/Layout/AppTitle'
-// import { getList } from '@/api/table'
+// import { getTableList } from '@/api/table'
   
 
 export default {

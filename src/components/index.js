@@ -5,6 +5,10 @@ import SearchRadioItem from '@/components/Search/s-radio'
 import SearchDaterangeItem from '@/components/Search/s-daterange'
 import ToolBar from '@/components/Search/toolbar'
 
+
+// 表格
+import CommonTable from '@/components/CommonTable'
+
 export const searchInputItem = {
     install: function (Vue) {
         Vue.component('search-input-item', SearchInputItem)
@@ -35,3 +39,8 @@ export const toolBar = {
     }
 }
 
+export const commonTable = {
+    install: function (Vue) {
+        Vue.component('c-table', CommonTable)
+    }
+}

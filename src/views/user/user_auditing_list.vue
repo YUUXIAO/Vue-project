@@ -98,7 +98,7 @@ create time: 2019-2-25
 </template>
 
 <script>
-  import { getList } from '@/api/table'
+  import { getTableList } from '@/api/table'
 
   export default {
     data() {
@@ -157,7 +157,7 @@ create time: 2019-2-25
       },
       fetchData() {
         // this.listLoading = true
-        getList(this.formControl).then(response => {
+        getTableList(this.formControl).then(response => {
           this.tableData = response.data.items
           // this.listLoading = false
         })
