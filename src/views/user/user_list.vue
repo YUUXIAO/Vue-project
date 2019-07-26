@@ -56,10 +56,9 @@ create time: 2019-2-25
 
 <script>
 import moment from 'moment'
-import util from '@/utils/utils'
+import util from '@/libs/utils'
 import enums from '@/common/enums'
 import AppTitle from '@/components/Layout/AppTitle'
-// import { getTableList } from '@/api/table'
   
 
 export default {

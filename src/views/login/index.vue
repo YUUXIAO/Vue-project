@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { isvalidUsername } from '@/utils/validate'
+  import { isvalidUsername } from '@/libs/validate'
   export default {
     name: 'Login',
     data() {

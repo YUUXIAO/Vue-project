@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../store'
-import utils from '@/utils/utils'
-import { getToken } from '@/utils/auth'
+import util from '@/libs/utils'
+import { getToken } from '@/libs/auth'
 
 
 
@@ -32,9 +32,9 @@ service.interceptors.response.use(
     const res = response.data
     if (res.code !== 200) {
       // 提示报错信息
-      utils.showMsg(res.message, 'warning')
+      util.showMsg(res.message, 'warning')
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        utils.showConfirm('你已被登出，可以取消继续留在该页面，或者重新登录', '', 'warning', '重新登录', '', function () {
+        util.showConfirm('你已被登出，可以取消继续留在该页面，或者重新登录', '', 'warning', '重新登录', '', function () {
           // 重新登陆
           // store.dispatch('FedLogOut').then(() => {
           // 为了重新实例化vue-router对象 避免bug
@@ -49,7 +49,7 @@ service.interceptors.response.use(
   },
   error => {
     // 提示报错信息
-    utils.showMsg(error.message, 'warning')
+    util.showMsg(error.message, 'warning')
     return Promise.reject(error)
   }
 )

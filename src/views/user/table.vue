@@ -1,34 +1,83 @@
 <template>
-    <div>
-        <c-table :loading="loading" :fetch="fetchTableData" :pagination="pagination" :select-on-indeterminate='false' :dataSource="tableData" :columns="columns" stripe border size="small" :row-class-name="showRow" show-summary sum-text="合计夺" :summary-method="summaryFun" @selection-change="handleSelectionChange" @filter-change="handleFilterChange" @select="selectChange">
-            <template v-slot:action1="slotProp">
-                <el-button size="mini" @click="testSlot(slotProp.scope.row)">默认按钮</el-button>
+    <div class="app-container">
+        <el-form ref="formControl" :model="formControl" label-width="70px" label-position="left">
+            <el-row :gutter="40">
+                <search-input-item label="姓名" v-model="formControl.username"></search-input-item>
+                <search-input-item label="手机号" v-model="formControl.phone"></search-input-item>
+                <search-select-item label="状态" placeholder="请选择状态" filterable :options="options" v-model="formControl.status"></search-select-item>
+            </el-row>
+            <el-row :gutter="40">
+                <search-daterange-item label="时间" v-model="formControl.dateRange"></search-daterange-item>
+                <search-radio-item label="是否启用" v-model="formControl.isOpen" :radioList="radioList"></search-radio-item>
+            </el-row>
+            <tool-bar>
+                <template slot="search">
+                    <el-button-group>
+                        <el-button type="primary" icon="el-icon-search" @click="onSubmit()">搜索</el-button>
+                        <el-button type="warning " icon="el-icon-refresh-left " @click='resetForm("formControl")'>重置</el-button>
+                    </el-button-group>
+                </template>
+            </tool-bar>
+        </el-form>
+        <c-table :loading="loading" :formControl="formControl" :columns="columns" :dataSource="tableData" :fetch="fetchTableData" :pagination="pagination" stripe border show-summary sum-text="合计" :summary-method="summaryFun" @select="selectChange">
+            <template v-slot:other1="slotProp">
+                <el-input placeholder="我是SOLT" size="mini" style="width:100px"></el-input>
             </template>
         </c-table>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-// import CommonTable from '@/components/ComTable'
+import util from '@/libs/utils'
 import { getTableList } from '@/api/table'
 
 export default{
-  components:{
-    // CommonTable,
-  },
   data(){
     return { 
       loading: false, 
+      formControl: {
+        username: '',
+        phone: '',
+        isOpen: '',
+        status: '',
+        dateRange: [],
+        from: '',
+        to: '',
+        currPage: 1,
+        pageSize: 10
+      },
       columns:[
           {
             type: 'selection',
-            width: 100
+            width: 100,
+            // 决定这一行的 CheckBox 是否可以勾选[仅对 type=selection 的列有效]
+            selectable:(row,index)=>{
+               if(row.name == 'jasmine'){
+                   return false
+               }else{
+                   return true
+               }
+            },
           },
           {
             label: '姓名',
             prop: 'name',
-            width: 120
+            width: 120,
+            // 渲染表头
+            rendeHead:(h,{ column, $index })=>{
+                return h(
+                    'span',
+                        {
+                            class:{
+                               'el-icon-user':true
+                            },
+                            style:{
+                                'letter-spacing':'5px'
+                            }
+                        },
+                        '姓名'
+                )
+            }
           },
           {
             label: '单号',
@@ -38,17 +87,32 @@ export default{
           {
             label: '时间',
             prop: 'createTime',
-            width: 120
+            width: 120,
+            // 数据过滤的选项[text 和 value 属性必填]
+            filters:[
+                {
+                    text:'2019-07-25',
+                    value:'1564019197000'
+                },
+                 {
+                    text:'2019-07-24',
+                    value:'2019-07-24'
+                }
+            ],
+            // 数据过滤使用的方法[返回 true 就会显示]
+            filterHandler:(value,row,column)=>{
+                let { property } = column
+                return row[property] == value;
+            },
+            // 数据简单格式化
+            formatter:(row,column)=>{
+                return util.formatDate(row.createTime)
+            },
           },
           {
             label: '客户',
             prop: 'customer',
-            width: 120
-          },
-           {
-            label: '审批状态',
-            prop: 'auditStatus',
-            width: 120
+            width: 200
           },
           {
             label: '客户代码',
@@ -56,182 +120,112 @@ export default{
             width: 120
           },
           {
+            label: '地址',
+            prop: 'address',
+            width: 230,
+            // 当内容过长被隐藏时显示 tooltip
+            hiddenOver:true
+          },
+           {
+            label: '审批状态',
+            prop: 'auditStatus',
+            width: 120,
+            render:(h,params)=>{
+                return h('status',{
+                    props:{
+                        status: params.row.auditStatus
+                    }
+                })
+            }
+          },
+        
+          {
             label: '单据状态',
             prop: 'delete',
-            width: 120
+            width: 120,
+            render:(h, params)=>{
+                return h('el-tag', {
+                    props: {
+                        size: 'small',
+                        type: params.row.delete === 0 ? 'danger' : 'success'
+                    } 
+                }, 
+                params.row.state === 0 ? '已删除':'正常数据'
+            )}
           },
           {
             label: '已付金额',
             prop: 'paymentAmount',
-            width: 120
+            width: 120,
+            // 数据简单格式化
+            formatter:(row,column)=>{
+                return util.numberSeparator(row.paymentAmount)
+            }
+          },
+          {
+              action: true,
+              label:'操作',
+              otherAction:1,
+              btnGroup:[
+                  {
+                      name:'编辑',
+                      onClick:(row,index)=>{
+                          util.showMsg(`演示click ${index}`)
+                      }
+                  },
+                  {
+                      name:'删除',
+                      type:'danger',
+                      onClick:(row,index)=>{
+                          util.showConfirm('您确定删除当前数据吗？','warning','删除提示','','',this.confirmDelete)
+                      }
+                  }
+              ],
           }
       ],
-    //   columns:[
-    //     {
-    //         type:'selection',
-    //         width: 100,
-    //         // 决定这一行的 CheckBox 是否可以勾选[仅对 type=selection 的列有效]
-    //         // selectable:(row,index)=>{
-    //         //     if(row.name==='王小虎2'){
-    //         //         return false
-    //         //     }else{
-    //         //         return true
-    //         //     }
-    //         // },
-    //     },
-    //     {
-    //         type:'index',
-    //         width: 100,
-    //         fixed:'left'
-    //     },
-    //     {
-    //         prop:'name',
-    //         label:'姓名',
-    //         width: 70,
-    //         // 渲染数据
-    //         formatter:(row,column)=>{
-    //            return row.name
-    //         },
-    //         // 渲染表头
-    //         rendeHead:(h,{ column, $index })=>{
-    //             return h(
-    //                 'el-tag',
-    //                     {
-    //                         props: {
-    //                         type: 'success'
-    //                         },
-    //                         on: {
-    //                             click:()=>{
-    //                                 console.log(column)
-    //                             }
-    //                         }
-    //                     },
-    //                     '姓名'
-    //             )
-    //         }
-    //     },
-    //      {
-    //         prop:'date',
-    //         label:'日期',
-    //         width:170,
-    //         filters:[ { text:'2016-05-02',value:'2016-05-02' }, { text:'2016-05-01',value:'2016-05-01' }],
-    //         filterHandler:(value,row,column)=>{
-    //             let { property } = column
-    //             return row[property] === value;
-    //         }
-    //     },
-    //     {
-    //         prop:'price',
-    //         label:'价钱',
-    //         width: 70,
-    //         align:'left',
-    //         render:(row,column)=>{
-              
-    //         }
-    //     },
-    //     {
-    //     prop: 'state',
-    //     label: '状态',
-    //     align: 'center',
-    //     render: (h, params) => {
-    //         return h('el-tag', {
-    //             props: {
-    //                 type: params.row.state === 0 ? 'success' : params.row.state === 1 ? 'info' : 'danger'
-    //             } 
-    //         }, 
-    //         params.row.state === 0 ? '上架' : params.row.state === 1 ? '下架' : '审核中')
-    //     }
-    //  },
-    //      {
-    //         prop:'address',
-    //         label:'地址',
-    //         width: 370,
-    //         hiddenOver:true
-    //     },
-    //     {
-    //         action:true,
-    //         prop:'action',
-    //         label:'操作',
-    //         btnGroup:[
-    //             {
-    //                 name: '详情',
-    //                 type:'success',
-    //                 onClick:(row,index)=>{
-                      
-    //                 }
-    //             },
-    //             {
-    //                 name: '编辑',
-    //                 type:'success',
-    //                 onClick:(row,index)=>{
-    //                     console.log(row)
-    //                     console.log(index)
-    //                 }
-    //             }
-    //         ],
-    //         otherAction:2
-    //     }
-    //   ],
       tableData:[],
-    //   tableData: [
-    //     {
-    //         id:1,
-    //         date: '2016-05-02',
-    //         name: '王小虎1',
-    //         price:200,
-    //         state:1,
-    //         address: '上海市普陀区金沙江路 1 弄上海市普陀区金沙江路 1 弄上海市普陀区金沙江路 1 弄上海市普陀区金沙江路 1 弄上海市普陀区金沙江路 1 弄'
-    //     }, 
-    //     {
-    //         id:2,
-    //         date: '2016-05-04',
-    //         name: '王小虎2',
-    //         price:300,
-    //         state:0,
-    //         address: '上海市普陀区金沙江路 2 弄'
-           
-    //     }, 
-    //     {
-    //         id:3,
-    //         date: '2016-05-01',
-    //         name: '王小虎3',
-    //         price:400,
-    //         state:0,
-    //         address: '上海市普陀区金沙江路 3 弄'
-    //     }, 
-    //     {
-    //         id:4,
-    //         date: '2016-05-03',
-    //         name: '王小虎4',
-    //         price:500,
-    //         state:1,
-    //         address: '上海市普陀区金沙江路 4 弄'
-    //     }
-    //   ],
+      options:[
+        {
+          label:'禁用',
+          value:'disable'
+        },
+        {
+          label:'启用',
+          value:'active'
+        }
+      ],
+      radioList:[
+        {
+          label:'启用',
+          value:'1'
+        },
+        {
+          label:'未启用',
+          value:'0'
+        }
+      ],
       pagination:{
-          total:120,
-          pageIndex: 1,
-          pageSize:15
+        total:20
       },
     }
   },
   methods: {
-      testSlot(row){
-          let {id} = row
-      },
-
-
-    selectChange(selection,row){
-        // console.log(selection)
+   // 重置搜索表单
+    resetForm(formName) {
+      Object.assign(this.$data.formControl, this.$options.data().formControl)
     },
-
-    showRow({row,rowIndex}){
-       if (rowIndex === 1) {
-          return 'warning-row';
-        } else if (rowIndex === 3) {
-          return 'success-row';
-        }
-        return '';
+    onSubmit(){
+      this.fetchTableData()
+    },
+    // 确认删除
+    confirmDelete(row,index){
+        this.tableData.splice(index,1)
+        util.showNotice('删除成功！')
+    },
+    // 多选操作
+    selectChange(selection,row){
+        console.log(selection)
+        console.log(row)
     },
     // 表格底部合计
     summaryFun(param){
@@ -241,8 +235,8 @@ export default{
             if(index===0){
                 sums[index] = '合计'
                 return
-            }else if(column.property==='action' || index===1){
-                sums[index] = ''
+            }else if(column.property==='action' || column.property==='createTime' || column.property==='delete' ){
+                sums[index] = '-'
                 return
             }
             const values = data.map(item=>{
@@ -259,38 +253,20 @@ export default{
                 },0)
                 sums[index] += ' 元';
             }else{
-
-                sums[index] = 'N/A'
+                sums[index] = '-'
             }
         })
         return sums;
     },
+    // 列表数据查询
     fetchTableData() {
         this.loading = true
-        getTableList().then(res=>{
+        getTableList(this.formControl).then(res=>{
             let { list , totalElement } = res
+            this.loading = false
             this.tableData = list
             this.pagination.total = totalElement
         })
-
-    //    this.options.loading = true
-    //    axios.post('https://www.easy-mock.com/mock/5b3f80edfa972016b39fefbf/example/tableData', {
-    //     pageIndex: this.pagination.pageIndex,
-    //     pageSize: this.pagination.pageSize
-    //   }).then(res => {
-    //     const { list, total } = res.data.data
-    //     this.tableData = list
-    //     this.pagination.total = total
-    //     this.options.loading = false
-    //   }).catch((error) => {
-    //     this.options.loading = false
-    //   })
-    },
-    handleSelectionChange(selection){
-      console.log(selection)
-    },
-    handleFilterChange(param){
-        console.log(param)
     }
   }
 }
@@ -302,7 +278,6 @@ export default{
 .el-table .warning-row {
   color: red;
 }
-
 .el-table .success-row {
   color: blue;
 }

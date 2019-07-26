@@ -14,7 +14,10 @@
 export default {
     name:'searchDaterangeItem',
     props:{
-        value:[],
+        value:{
+            type:Array,
+            default:[]
+        },
         colSpan:{
             type: [Number],
             default: 6

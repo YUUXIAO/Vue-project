@@ -9,8 +9,8 @@ import '@/icons'
 import '@/styles/index.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import '@/utils/permission'
-import * as filters from '@/utils/filters'
+import '@/libs/permission'
+import * as filters from '@/libs/filters'
 import * as components from '@/components'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 

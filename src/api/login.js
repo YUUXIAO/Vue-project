@@ -3,7 +3,7 @@
   author: yuxiao
   create time: 2019-2-21
  */
-import request from '@/utils/request'
+import request from '@/libs/request'
 
 // 登陆
 export function login(username, password) {

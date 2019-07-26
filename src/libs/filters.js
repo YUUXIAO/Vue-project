@@ -1,5 +1,5 @@
 import moment from 'moment'
-import utils from './utils'
+import util from './utils'
 
 // 格式化时间
 export function formatDate(time, pattern = 'YYYY-MM-DD HH:mm:ss') {
@@ -23,7 +23,7 @@ export function numberSeparator(value = 0, type) {
   if (!type) {
     type = 'int'
   }
-  return utils.numberSeparator(value, type)
+  return util.numberSeparator(value, type)
 }
 
 // 下拉框显示格式化
