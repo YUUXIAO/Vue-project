@@ -6,14 +6,11 @@
 import request from '@/libs/request'
 
 // 登陆
-export function login(username, password) {
+export function login(data) {
   // return request({
   //   url: '/user/login',
   //   method: 'post',
-  //   data: {
-  //     username,
-  //     password
-  //   }
+  //   data
   // })
 
   // 模拟假数据

@@ -1,13 +1,22 @@
 <template>
-    <div class="appTitle">
-        <h2>用户列表</h2>
+    <div class="app-title">
+        <h2>
+            <slot></slot>
+        </h2>
     </div>
 </template>
 
-
-<style lang="scss" scoped>
-.appTitle {
-  border: 1px solid red;
+<script>
+export default {
+    props:{
+        // title:{
+        //     type: String,
+        //     default:'标题'
+        // }
+    },
+    data(){
+        return{ }
+    }
 }
-</style>
+</script>
 

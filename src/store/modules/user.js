@@ -60,6 +60,16 @@ const user = {
       })
     },
 
+    // 清空用户信息
+    resetToken({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        removeToken()
+        resolve()
+      })
+    },
+
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {

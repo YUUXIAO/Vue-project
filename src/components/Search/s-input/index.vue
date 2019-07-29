@@ -3,7 +3,7 @@
         <el-col :span="colSpan">
             <div>
                 <el-form-item :label="label">
-                    <el-input v-model="inputValue" v-bind="$attrs" v-on="$listeners" clearable></el-input>
+                    <el-input size="small" v-model="inputValue" v-bind="$attrs" v-on="$listeners" clearable></el-input>
                 </el-form-item>
             </div>
         </el-col>

@@ -12,20 +12,18 @@ Vue.use(Router)
     title: 'title'               此字段用于显示相应页面在左侧菜单栏和面包屑导航中的名称【必填】
     icon: 'svg-name'             菜单图标
     role：'[admin]'              决定访问此页面所需的用户权限【根据此字段过滤路由根据不同用户动态加载】
+    activeMenu:'router-name'       此页面在菜单栏隐藏，设置菜单栏高亮状态的父级路由
   }
-* activeMenu:'router-name'       此页面在菜单栏隐藏，设置菜单栏高亮状态的父级路由
+* 
 **/
 
 // 静态路由，不需要权限
-export const nonAuthRouter = [{
-  path: '/',
-  redirect: '/login'
-},
-{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-}
+export const nonAuthRouter = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  }
 ]
 // 动态路由，需要根据用户权限动态加载
 export const authRouter = [
@@ -73,16 +71,6 @@ export const authRouter = [
           role: ['user_auditing']
         },
         component: () => import('@/views/user/user_list')
-      },
-      {
-        path: 'table',
-        name: 'user-table',
-        meta: {
-          title: '封装列表',
-          icon: 'el-icon-user',
-          role: ['user_auditing']
-        },
-        component: () => import('@/views/user/table')
       },
       // 用户审核列表
       {

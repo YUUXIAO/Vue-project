@@ -4,10 +4,12 @@ import SearchSelectItem from '@/components/Search/s-select'
 import SearchRadioItem from '@/components/Search/s-radio'
 import SearchDaterangeItem from '@/components/Search/s-daterange'
 import ToolBar from '@/components/Search/toolbar'
-
+import AppTitle from '@/components/Layout/AppTitle'
 
 // 表格
-import CommonTable from '@/components/CommonTable'
+import BaseTable from '@/components/BaseTable'
+
+
 
 export const searchInputItem = {
     install: function (Vue) {
@@ -39,8 +41,14 @@ export const toolBar = {
     }
 }
 
-export const commonTable = {
+export const appTitle = {
     install: function (Vue) {
-        Vue.component('c-table', CommonTable)
+        Vue.component('app-title', AppTitle)
+    }
+}
+
+export const baseTable = {
+    install: function (Vue) {
+        Vue.component('c-table', BaseTable)
     }
 }

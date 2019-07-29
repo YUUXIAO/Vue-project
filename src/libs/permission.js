@@ -3,36 +3,50 @@ import store from '../store'
 import util from './utils'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { Message } from 'element-ui'
-import { getToken, hasPermission, filterAuthRouter } from '@/libs/auth'
+import { getToken, filterAuthRouter } from '@/libs/auth'
 import { authRouter } from '@/router/index'
-
 
 const whiteList = ['/login', '/404']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   NProgress.start()
   util.title(to.meta.title)
 
-  if (whiteList.indexOf(to.path) !== -1) {
-    next()
-  } else if (store.state.user.isLogin) {
-    if (hasPermission(store.state.user.roles, to)) {
-      next()
+  const hsaToken = getToken()
+  if (hsaToken) {
+    if (to.path === '/login') {
+      // 已登陆可跳过登陆进入首页
+      next({ path: '/login' })
+      // NProgress.done()
     } else {
-      next({ path: '/404' })
+      const hasRoles = store.getters.roles && store.getters.roles.length > 0
+      if (hasRoles) {
+        next()
+      } else {
+        try {
+          // 重新拉取用户信息
+          const { roles } = await store.dispatch('GetInfo')
+          const routers = filterAuthRouter(authRouter, roles)
+          router.addRoutes(routers)
+          store.commit('SET_MENU', routers)
+          next({ ...to })
+        } catch (error) {
+          // 清空用户信息
+          await store.dispatch('resetToken')
+          util.showMsg(error || 'Has Error', 'error')
+          next('/login')
+          NProgress.done()
+        }
+      }
     }
   } else {
-    store.dispatch('GetInfo').then(res => {
-      const { roles } = res
-      const routers = filterAuthRouter(authRouter, roles)
-      router.addRoutes(routers)
-      store.commit('SET_MENU', routers)
-      next({ ...to })
-    }).catch(error => {
-      next({ path: '/login' })
+    // has no token
+    if (whiteList.includes(to.path)) {
+      next()
+    } else {
+      next('/login')
       NProgress.done()
-    })
+    }
   }
 })
 

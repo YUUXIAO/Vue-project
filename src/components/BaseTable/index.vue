@@ -1,6 +1,6 @@
 <template>
     <div class="table">
-        <el-table ref="refTable" v-bind="$attrs" v-loading="loading" :data="dataSource" @row-click="handleRowClick" @selection-change="handleSelectionChange" @select="handleSelect" @row-dblclick="handleDbClick" @filter-change="handleFilterChange" style="width: 100%;">
+        <el-table ref="refTable" v-bind="$attrs" v-loading="loading" :data="dataSource" size="mini" @row-click="handleRowClick" @selection-change="handleSelectionChange" @select="handleSelect" @row-dblclick="handleDbClick" @filter-change="handleFilterChange" style="width: 100%;">
             <template v-for="(column,index) in columns">
                 <!-- 序号/选择框 -->
                 <el-table-column v-if="column.type" :key="`type${index}`" :type="column.type" :label="column.label||'序号'" :width="column.width||'50'" :align="column.align||'center'" :fixed="column.fixed" :selectable="column.selectable"></el-table-column>
@@ -67,7 +67,7 @@ let renderSlot = {
     }
 }
 export default {
-    name:'CommonTable',
+    name:'BaseTable',
      components: {
         renderSlot,
         status

@@ -2,7 +2,7 @@
     <div>
         <el-col :span="colSpan">
             <el-form-item :label="label">
-                <el-select v-model="selectValue" v-bind="$attrs" v-on="$listeners" style="width: 100%;">
+                <el-select v-model="selectValue" v-bind="$attrs" v-on="$listeners" size="small" style="width: 100%;">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
             </el-form-item>
