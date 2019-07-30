@@ -1,4 +1,11 @@
-##目录结构
+## ABOUT
+此项目是 vue + element-ui 构建的一个后台管理系统模版，对一些基础的功能进行封装，没有业务代码只是一个框架，具有登陆、权限、验证等功能，封装了一些基础组件，可以根据自己的业务需求修改;
+很多地方可能写的不是很好，欢迎提意见共同进步
+参考项目地址：https://github.com/PanJiaChen/vue-element-admin
+
+## 技术栈
+vue2 + vuex + vue-router + webpack + ES6/7 + sass + element-ui
+## 目录结构
 
 <pre>
 │  .gitignore                       # 忽略文件,比如 node_modules

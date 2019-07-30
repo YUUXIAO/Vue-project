@@ -18,9 +18,9 @@ export function getTableList(params) {
           orderNumber: "CG2019072501",
           paymentAmount: 1059840,
           delete: 0,
-          customer: '宇隆电子香港有限公司',
+          customer: 'AAA科技有限公司',
           customerCode: 'S5',
-          address: '香港新界葵涌工业街 24-28 号威信物流中心14楼A室 Room A,14/F, WILSON LOGISTICS CENTRE 24-28 KUNG YIP STREET KWAI CHUNG,New Territories,HongKong'
+          address: '广东省深圳市南山区XXXX街道YYY栋ZZZ单元MM号'
         },
         {
           id: 2,
@@ -30,9 +30,9 @@ export function getTableList(params) {
           orderNumber: "CG2019072201",
           paymentAmount: 540000,
           delete: 1,
-          customer: '华憶科技股份有限公司',
+          customer: 'BBB科技有限公司',
           customerCode: 'C1',
-          address: '香港九龙湾常悦道9号企业广场二座1906室'
+          address: '广东省深圳市福田区XXXX'
         },
         {
           id: 3,
@@ -42,9 +42,9 @@ export function getTableList(params) {
           orderNumber: "CG2019072501",
           paymentAmount: 65050,
           delete: 0,
-          customer: '金癸有限公司',
+          customer: 'CCCC科技有限公司',
           customerCode: 'S5',
-          address: 'Unit C,18/F., Block 1, Tai Ping Ind.Ctr.,57 Ting Kok Road, Tai Po,NT,Hong Kong'
+          address: '广东省深圳市罗湖区XXXX'
         },
         {
           id: 4,
@@ -54,9 +54,9 @@ export function getTableList(params) {
           orderNumber: "CG2019072501",
           paymentAmount: 112758.64,
           delete: 1,
-          customer: '隽朗实业有限公司',
+          customer: 'DDD科技有限公司',
           customerCode: 'A3',
-          address: '香港湾仔湾仔道165-171号乐基中心1405室'
+          address: '广东省深圳市宝安区XXXX'
         }
       ],
       totalElement: 230
