@@ -8,7 +8,7 @@ const app = {
   state: {
     isLoading: false,
     sidebar: {
-      // opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : false,
+      opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : false,
       opened: true,
       withoutAnimation: false
     },

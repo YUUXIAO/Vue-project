@@ -35,7 +35,6 @@
         </el-table>
         <!-- 分页 -->
         <template>
-
             <el-pagination class="flex-x-end" background hide-on-single-page :page-size="formControl.pageSize" :total="pagination.total" layout="total, sizes, prev, pager, next, jumper" :page-sizes="[10, 15, 20, 50]" @size-change="handleSizeChange" @current-change="handleIndexChange"> </el-pagination>
         </template>
     </div>

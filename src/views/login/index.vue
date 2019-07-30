@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item>
         <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          Sign in
+          登陆
         </el-button>
       </el-form-item>
       <div class="tips">

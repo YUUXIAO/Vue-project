@@ -36,7 +36,7 @@ export function getInfo(token) {
       data: {
         name: 'YU',
         avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3065423701,9584140&fm=27&gp=0.jpg',
-        roles: ['user', 'user_auditing', 'product', 'product_category', 'product_standard', 'nested_menu1', 'nested_menu1_menu1-1', 'nested']
+        roles: ['user', 'user_auditing', 'product', 'product_category', 'product_standard', 'nested_menu1', 'nested_menu1_menu1-1', 'nested_menu1_menu1-3', 'nested']
       }
     }
     resolve(data)

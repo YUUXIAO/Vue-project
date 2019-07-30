@@ -12,7 +12,7 @@ Vue.use(Router)
     title: 'title'               此字段用于显示相应页面在左侧菜单栏和面包屑导航中的名称【必填】
     icon: 'svg-name'             菜单图标
     role：'[admin]'              决定访问此页面所需的用户权限【根据此字段过滤路由根据不同用户动态加载】
-    activeMenu:'router-name'       此页面在菜单栏隐藏，设置菜单栏高亮状态的父级路由
+    activeMenu:'router-name'     此页面在菜单栏隐藏，设置菜单栏高亮状态的父级路由
   }
 * 
 **/
@@ -192,25 +192,27 @@ export const authRouter = [
         icon: "el-icon-document",
         role: ['nested_menu1']
       },
-      children: [{
-        path: 'menu1-1',
-        name: 'nested-menu1-1',
-        component: () => import('@/views/nested/menu1/menu1-1'),
-        meta: {
-          title: 'Menu1-1',
-          role: ['nested_menu1_menu1-1']
+      children: [
+        {
+          path: 'menu1-1',
+          name: 'nested-menu1-1',
+          component: () => import('@/views/nested/menu1/menu1-1'),
+          meta: {
+            title: 'Menu1-1',
+            icon: 'el-icon-document',
+            role: ['nested_menu1_menu1-1']
+          }
+        },
+        {
+          path: 'menu1-3',
+          name: 'nested-menu1-3',
+          component: () => import('@/views/nested/menu1/menu1-3'),
+          meta: {
+            title: 'Menu1-3',
+            icon: 'el-icon-document',
+            role: ['nested_menu1_menu1-3']
+          }
         }
-      },
-      {
-        path: 'menu1-3',
-        name: 'nested-menu1-3',
-        component: () => import('@/views/nested/menu1/menu1-3'),
-        meta: {
-          title: 'Menu1-3',
-          icon: 'el-icon-document',
-          role: ['nested_menu1_menu1-3']
-        }
-      }
       ]
     },
     {

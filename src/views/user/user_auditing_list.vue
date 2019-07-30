@@ -158,7 +158,7 @@ create time: 2019-2-25
       fetchData() {
         // this.listLoading = true
         getTableList(this.formControl).then(response => {
-          this.tableData = response.data.items
+          this.tableData = response.list
           // this.listLoading = false
         })
       },
