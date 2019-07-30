@@ -17,7 +17,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       // 已登陆可跳过登陆进入首页
       next({ path: '/login' })
-      // NProgress.done()
+      NProgress.done()
     } else {
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles) {
