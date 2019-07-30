@@ -35,15 +35,3 @@ export function filterAuthRouter(routers, roles) {
   })
   return accessedRouters
 }
-// 设置历史访问页面
-// export function setTagsList(authRouter) {
-//   const tagsList = []
-//   authRouter.map(item => {
-//     if (item.children) {
-//       tagsList.push(...item.children)
-//     } else {
-//       tagsList.push(item)
-//     }
-//   })
-//   this.$store.commit('setTagsList', tagsList)
-// }
