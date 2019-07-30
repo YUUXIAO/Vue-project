@@ -1,18 +1,18 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">Login Form</h3>
+      <h3 class="title">登陆</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
+        <el-input class="input" v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input :type="pwdType" v-model="loginForm.password" name="password" auto-complete="on" placeholder="password" @keyup.enter.native="handleLogin" />
+        <el-input class="input" :type="pwdType" v-model="loginForm.password" name="password" auto-complete="on" placeholder="password" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="pwdType === 'password' ? 'eye' : 'eye-open'" />
         </span>
@@ -23,8 +23,8 @@
         </el-button>
       </el-form-item>
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
+        <span style="margin-right:20px;">用户名: admin</span>
+        <span> 密码: admin</span>
       </div>
     </el-form>
   </div>
@@ -110,8 +110,6 @@
 $bg: #2d3a4b;
 $light_gray: #eee;
 
-/* reset element-ui css */
-
 .login-container {
   .el-input {
     display: inline-block;
@@ -123,7 +121,7 @@ $light_gray: #eee;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: #303133;
       height: 47px;
       &:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
@@ -148,7 +146,7 @@ $light_gray: #eee;
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #efefef;
   .login-form {
     position: absolute;
     left: 0;
@@ -157,6 +155,9 @@ $light_gray: #eee;
     max-width: 100%;
     padding: 35px 35px 15px 35px;
     margin: 120px auto;
+    background-color: #fff;
+    border: 1px solid #e4e7ed;
+    box-shadow: 10px 10px 15px #999;
   }
   .tips {
     font-size: 14px;
@@ -178,7 +179,7 @@ $light_gray: #eee;
   .title {
     font-size: 26px;
     font-weight: 400;
-    color: $light_gray;
+    color: #303133;
     margin: 0px auto 40px auto;
     text-align: center;
     font-weight: bold;
