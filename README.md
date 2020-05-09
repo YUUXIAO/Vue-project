@@ -80,7 +80,7 @@ vue2 + vuex + vue-router + webpack + ES6/7 + sass + element-ui
 
 ```bash
 # Clone project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+git clone https://github.com/YUUXIAO/Vue-project.git
 
 # Install dependencies
 npm install
