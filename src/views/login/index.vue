@@ -6,13 +6,13 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input class="input" v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
+        <el-input v-model="loginForm.username" class="input" name="username" type="text" auto-complete="on" placeholder="username" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input class="input" :type="pwdType" v-model="loginForm.password" name="password" auto-complete="on" placeholder="password" @keyup.enter.native="handleLogin" />
+        <el-input :type="pwdType" v-model="loginForm.password" class="input" name="password" auto-complete="on" placeholder="password" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="pwdType === 'password' ? 'eye' : 'eye-open'" />
         </span>
@@ -31,79 +31,90 @@
 </template>
 
 <script>
-  import { isvalidUsername } from '@/libs/validate'
-  export default {
-    name: 'Login',
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!isvalidUsername(value)) {
-          callback(new Error('请输入正确的用户名'))
-        } else {
-          callback()
-        }
-      }
-      const validatePass = (rule, value, callback) => {
-        if (value.length < 5) {
-          callback(new Error('密码不能小于5位'))
-        } else {
-          callback()
-        }
-      }
-      return {
-        loginForm: {
-          username: 'admin',
-          password: 'admin'
-        },
-        loginRules: {
-          username: [{
-            required: true,
-            trigger: 'blur',
-            validator: validateUsername
-          }],
-          password: [{
-            required: true,
-            trigger: 'blur',
-            validator: validatePass
-          }]
-        },
-        loading: false,
-        pwdType: 'password',
-        redirect: undefined
-      }
-    },
-    watch: {
-      $route: {
-        handler: function(route) {
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.pwdType === 'password') {
-          this.pwdType = ''
-        } else {
-          this.pwdType = 'password'
-        }
-      },
-      handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            this.$store.dispatch('Login', this.loginForm).then(res => {
-              this.loading = false
-              this.$router.push({ path: '/home'})
-            }).catch(() => {
-              this.loading = false
-            })
-          } else {
-            return false
-          }
-        })
+import { isvalidUsername } from '@/libs/validate'
+import Vue from 'Vue'
+export default {
+  name: 'Login',
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!isvalidUsername(value)) {
+        callback(new Error('请输入正确的用户名'))
+      } else {
+        callback()
       }
     }
+    const validatePass = (rule, value, callback) => {
+      if (value.length < 5) {
+        callback(new Error('密码不能小于5位'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      loginForm: {
+        username: 'admin',
+        password: 'admin'
+      },
+      loginRules: {
+        username: [{
+          required: true,
+          trigger: 'blur',
+          validator: validateUsername
+        }],
+        password: [{
+          required: true,
+          trigger: 'blur',
+          validator: validatePass
+        }]
+      },
+      loading: false,
+      pwdType: 'password',
+      redirect: undefined
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
+  mounted() {
+    console.log('vuevueuvueuvueuvueuvueuvueuvueuvueuu')
+    console.log(Vue.config.optionMergeStrategies)
+  },
+  pageVisible() {
+    console.log('页面显示出来了')
+  },
+  pageHidden() {
+    console.log('页面隐藏了')
+  },
+  methods: {
+    showPwd() {
+      if (this.pwdType === 'password') {
+        this.pwdType = ''
+      } else {
+        this.pwdType = 'password'
+      }
+    },
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          this.$store.dispatch('Login', this.loginForm).then(res => {
+            this.loading = false
+            this.$router.push({ path: '/home' })
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          return false
+        }
+      })
+    }
   }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

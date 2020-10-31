@@ -16,6 +16,8 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
 Vue.use(ElementUI, { zhLocale })
 
+import { init, bind } from './libs/custom-life-cycle'
+
 // 全局注册filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -29,14 +31,16 @@ Object.keys(components).forEach(key => {
 // 阻止显示生产模式的消息
 Vue.config.productionTip = false
 
-new Vue({
+// 初始化生命周期函数, 必须在Vue实例化之前确定合并策略
+init()
+
+const vm = new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App),
   created() {
     // 设置最近打开页面
-    let tagsList = []
+    const tagsList = []
     authRouter.map(item => {
       if (item.children) {
         tagsList.push(...item.children)
@@ -45,5 +49,10 @@ new Vue({
       }
     })
     this.$store.commit('setTagsList', tagsList)
-  }
+  },
+  render: h => h(App)
 })
+
+// 将rootVm 绑定到生命周期函数监听里面
+bind(vm)
+
